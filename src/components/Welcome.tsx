@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ShoppingBasket,Bike,ArrowRight } from "lucide-react";
 
 
-type ptopType={
+type propType={
   nextStep:(n:number)=> void
 }
 
@@ -15,7 +15,7 @@ type ptopType={
 
 
 
-export default function Welcome({nextStep}:ptopType){
+export default function Welcome({nextStep}:propType){
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-6">
 

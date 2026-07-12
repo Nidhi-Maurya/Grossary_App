@@ -17,7 +17,7 @@ import RegisterForm from "@/components/RegisterForm";
     return (
       <>
 
-{step===1  ? <Welcome nextStep={setStep} /> : <RegisterForm/>}
+{step===1  ? <Welcome nextStep={setStep} /> : <RegisterForm previousStep={setStep} />}
       
       </>
     )
