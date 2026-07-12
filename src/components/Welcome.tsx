@@ -7,7 +7,15 @@ import { motion } from "framer-motion";
 import { ShoppingBasket,Bike,ArrowRight } from "lucide-react";
 
 
-export default function Welcome(){
+type ptopType={
+  nextStep:(n:number)=> void
+}
+
+
+
+
+
+export default function Welcome({nextStep}:ptopType){
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-6">
 
@@ -69,6 +77,7 @@ export default function Welcome(){
       
       className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-xl shadow-md transition-all duration-200 mt-10 cursor-pointer"
       
+      onClick={()=>nextStep(2)}
       
       >Next
       <ArrowRight/>
