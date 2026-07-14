@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import google from "@/assets/google.avif";
+import axios from "axios";
 
 type propType = {
   previousStep: (n: number) => void;
@@ -22,6 +23,25 @@ export default function RegisterForm({ previousStep }: propType) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+
+   const handleRegister =async(e:React.FormEvent) =>{
+    e.preventDefault()
+    try {
+      const result = await axios.post("/api/auth/register",{name,email,password})
+       console.log(result.data)
+    } catch (error: any) {
+  console.log("Status:", error.response?.status);
+  console.log("Data:", error.response?.data);
+  console.log("Message:", error.message);
+
+      
+    }
+   }
+
+
+
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 py-10 bg-white relative">
@@ -52,7 +72,9 @@ export default function RegisterForm({ previousStep }: propType) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col gap-5 w-full max-w-sm"
+        className="flex flex-col gap-5 w-full max-w-sm" 
+
+        onSubmit={handleRegister}
       >
         <div className="relative">
           <User className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
@@ -99,7 +121,7 @@ export default function RegisterForm({ previousStep }: propType) {
           )}
         </div>
 
-        <button>
+       
           {(() => {
             const FormValidation =
               name !== "" && email !== "" && password !== "";
@@ -111,12 +133,15 @@ export default function RegisterForm({ previousStep }: propType) {
                     ? "bg-green-600 hover:bg-green-700 text-white"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
-              >
-                Register
+
+               onClick={() => console.log("button clicked")}
+>
+              
+                Register 
               </button>
             );
           })()}
-        </button>
+      
 
         <div className="flex items-center gap-2 text-gray-400 text-sm mt-2 font-semibold">
           <span className="flex-1 h-px bg-gray-200"></span>
