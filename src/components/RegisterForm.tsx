@@ -19,13 +19,13 @@ export default function RegisterForm({previousStep}:propType){
 
                <ArrowLeft className="w-5 h-5 " />
 
-   <span className = "font-medium" >  Back  </span>
+   <span className = "font-medium" >  Back   </span>
  
                </div>
 
 
-          <motion.h1 className="text-3xl md:text-4xl font-extrabold text-green-700 mb-2">
-          Create Account
+          <motion.h1 className="text-3xl md:text-4xl font-extrabold text-green-700 mb-3">
+          Create Account 
           </motion.h1>
 
 
