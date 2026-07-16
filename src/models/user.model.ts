@@ -6,10 +6,11 @@ interface IUser {
   _id?:mongoose.Types.ObjectId,
   name:string,
   email:string,
-  password:string,
+  password?:string,
   role:"user" | "admin" | "deliveryBoy",
   mobile?:string,
   address:string,
+  image?:string
 }
 
 
@@ -29,7 +30,7 @@ interface IUser {
 
     password:{
       type:String,
-      required:true,
+      required:false,
     },
     mobile:{
       type:String,
@@ -39,6 +40,10 @@ interface IUser {
       type:String,
       enum:["user","admin","deliveryBoy"],
       default:"user"
+    },
+
+    image:{
+      type:String
     }
 
 
