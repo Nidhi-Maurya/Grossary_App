@@ -3,6 +3,7 @@ import {
   EyeIcon,
   EyeOff,
   Leaf,
+  Loader2,
   Lock,
   LogIn,
   Mail,
@@ -23,20 +24,25 @@ export default function RegisterForm({ previousStep }: propType) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading,setLoading]=useState(false)
 
 
    const handleRegister =async(e:React.FormEvent) =>{
     e.preventDefault()
+    setLoading(true)
     try {
       const result = await axios.post("/api/auth/register",{name,email,password})
        console.log(result.data)
+       setLoading(false)
     } catch (error: any) {
+      setLoading(false)
   console.log("Status:", error.response?.status);
   console.log("Data:", error.response?.data);
   console.log("Message:", error.message);
 
       
     }
+
    }
 
 
@@ -127,7 +133,7 @@ export default function RegisterForm({ previousStep }: propType) {
               name !== "" && email !== "" && password !== "";
             return (
               <button
-                disabled={!FormValidation}
+                disabled={!FormValidation|| loading}
                 className={`w-full font-semibold py-3 rounded-xl transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer ${
                   FormValidation
                     ? "bg-green-600 hover:bg-green-700 text-white"
@@ -137,7 +143,10 @@ export default function RegisterForm({ previousStep }: propType) {
                onClick={() => console.log("button clicked")}
 >
               
-                Register 
+              {
+                loading ? <Loader2 className="w-5 h-5 animate-spin" /> :   " Register "
+              }
+            
               </button>
             );
           })()}
