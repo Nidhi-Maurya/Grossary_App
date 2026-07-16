@@ -112,7 +112,7 @@ session:{
 
 secret:process.env.AUTH_SECRET,
 
-debug:true 
+// debug:true 
 })
 
 
