@@ -1,3 +1,6 @@
+"use client";
+
+
 import {
   ArrowLeft,
   EyeIcon,
@@ -15,51 +18,41 @@ import Image from "next/image";
 import google from "@/assets/google.avif";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 
-type propType = {
-  previousStep: (n: number) => void;
-};
 
-export default function RegisterForm({ previousStep }: propType) {
-  const [name, setName] = useState("");
+
+export default function Login() {
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading,setLoading]=useState(false)
 
+const session =useSession();
+console.log(session)
+ 
 
-   const handleRegister =async(e:React.FormEvent) =>{
-    e.preventDefault()
-    setLoading(true)
-    try {
-      const result = await axios.post("/api/auth/register",{name,email,password})
-       console.log(result.data)
-       setLoading(false)
-    } catch (error: any) {
-      setLoading(false)
-  console.log("Status:", error.response?.status);
-  console.log("Data:", error.response?.data);
-  console.log("Message:", error.message);
+const router = useRouter()
 
-      
-    }
-
-   }
-
-const router= useRouter();
-
+const handleLogin = async (e:React.FormEvent)=>{
+  e.preventDefault()
+  setLoading(true)
+  try {
+    await signIn("credentials",{email,password,})
+    setLoading(false)
+    
+  } catch (error) {
+    console.log(error);
+    setLoading(false)
+    
+  }
+}
 
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 py-10 bg-white relative">
-      <div
-        className="absolute top-6 left-6 flex items-center gap-2 text-green-700 hover:text-green-800 transitions-colors cursor-pointer"
-        onClick={() => previousStep(1)}
-      >
-        <ArrowLeft className="w-5 h-5 " />
-
-        <span className="font-medium"> Back </span>
-      </div>
+     
 
       <motion.h1
         initial={{ opacity: 0, y: -10 }}
@@ -67,12 +60,12 @@ const router= useRouter();
         transition={{ duration: 0.6 }}
         className="text-3xl md:text-4xl font-extrabold text-green-700 mb-2"
       >
-        Create Account
+       Welcome Back!!
       </motion.h1>
 
       <p className="text-green mb-8 flex items-center  text-medium">
         {" "}
-        Join Snapcart today <Leaf className="w-5 h-5 text-green-700" />{" "}
+        Login to Snapcart  <Leaf className="w-5 h-5 text-green-700" />{" "}
       </p>
 
       <motion.form
@@ -81,18 +74,9 @@ const router= useRouter();
         transition={{ duration: 0.6 }}
         className="flex flex-col gap-5 w-full max-w-sm" 
 
-        onSubmit={handleRegister}
+         onSubmit={handleLogin}
       >
-        <div className="relative">
-          <User className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full border border-gray-300 rounded-xl py-3 pl-10 pr-4 text-gray-800 focus:ring-2 focus:ring-green-500 focus:outline-none "
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </div>
+        
 
         <div className="relative">
           <Mail className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
@@ -131,7 +115,7 @@ const router= useRouter();
        
           {(() => {
             const FormValidation =
-              name !== "" && email !== "" && password !== "";
+               email !== "" && password !== "";
             return (
               <button
                 disabled={!FormValidation|| loading}
@@ -145,7 +129,7 @@ const router= useRouter();
 >
               
               {
-                loading ? <Loader2 className="w-5 h-5 animate-spin" /> :   " Register "
+                loading ? <Loader2 className="w-5 h-5 animate-spin" /> :   " Login "
               }
             
               </button>
@@ -165,11 +149,11 @@ const router= useRouter();
         </button>
       </motion.form>
 
-      <p onClick={()=>router.push('/login')}  className="text-gray-600 mt-6 text-sm flex items-center gap-1 cursor-pointer ">
+      <p onClick={()=>router.push('/register')}  className="text-gray-600 mt-6 text-sm flex items-center gap-1 cursor-pointer ">
         {" "}
-        Already have an account ? <LogIn className="w-4 h-4"/> 
+        Don't have an account ? <LogIn className="w-4 h-4"/> 
         <span className="text-green-600">
-          Sign in
+          Sign up
         </span>
       </p>
     </div>
