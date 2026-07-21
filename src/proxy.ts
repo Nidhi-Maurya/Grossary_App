@@ -8,7 +8,7 @@ export default async function proxy(req:NextRequest){
   
 
  const {pathname} = req.nextUrl
- const publicRoutes=["/login","/register","/api/auth","/favicon.ico","/_next"]
+ const publicRoutes=["/login","/register","/api/auth"]
 
  publicRoutes.some((path)=>path==pathname)
   if(publicRoutes.some((path)=>pathname.startsWith(path))){
@@ -34,7 +34,6 @@ return NextResponse.redirect(loginUrl)
 
 
 }
-
 
 
 export const config ={
