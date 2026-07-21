@@ -40,6 +40,7 @@ const handleLogin = async (e:React.FormEvent)=>{
   setLoading(true)
   try {
     await signIn("credentials",{email,password,})
+    router.push("/")
     setLoading(false)
     
   } catch (error) {

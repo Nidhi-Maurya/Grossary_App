@@ -34,7 +34,7 @@ export default function RegisterForm({ previousStep }: propType) {
     setLoading(true)
     try {
       const result = await axios.post("/api/auth/register",{name,email,password})
-       console.log(result.data)
+    router.push("/login")
        setLoading(false)
     } catch (error: any) {
       setLoading(false)
